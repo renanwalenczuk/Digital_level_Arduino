@@ -31,6 +31,14 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define LOGO_HEIGHT   64
 #define LOGO_WIDTH    128
 
+// '90', 20x20px
+const unsigned char Bitmap90 [] PROGMEM = {
+  0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0xc0, 0x00, 0x00, 0xe0, 
+  0x00, 0x00, 0x9c, 0x00, 0x00, 0x83, 0x00, 0x00, 0x80, 0x80, 0x00, 0x80, 0x40, 0x00, 0x80, 0x20, 
+  0x00, 0x80, 0x30, 0x00, 0x80, 0x10, 0x00, 0x80, 0x18, 0x00, 0x80, 0x08, 0x00, 0x80, 0x08, 0x00, 
+  0x80, 0x08, 0x00, 0x80, 0x0c, 0x00, 0x80, 0x04, 0x00, 0xff, 0xff, 0xf0
+};
+
 // 'logos_senai_preto', 128x64px
 const unsigned char logo_senai_preto [] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -99,11 +107,16 @@ const unsigned char logo_senai_preto [] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
+//Entradas
 int bt_zero = 2;
 int bt_hold = 3;
+const int bateria = A0;
 
+
+//Variáveis globais
 bool zeroRelativo = false;
 bool hold = false;
+int range = 90;
 
 void setup() {
   Serial.begin(9600);
@@ -140,19 +153,42 @@ void setup() {
 
 void loop() {
 
+  display.clearDisplay();
+  
   if(digitalRead(bt_zero) == 0){
     if(zeroRelativo) zeroRelativo = false;
     else zeroRelativo = true;
-
-    if(zeroRelativo){
-      ligaFuncaoZero();
-    }
-    else desligaFuncaoZero();
     delay(200);
   }
-  if(digitalRead(bt_hold) == 0) desligaFuncaoZero();
+  if(digitalRead(bt_hold) == 0){
+    if(hold) hold = false;
+    else hold = true;
+    delay(200);
+  }
+  if(range == 90) desenha_90();
+  if(hold) ligaFuncaoHold();
+  if(zeroRelativo) ligaFuncaoZero();
   mostraAngulo();
+  mostraNivelBateria();
+
+  display.display();
   delay(100);
+}
+
+void mostraNivelBateria(){
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(80,0);
+  display.print("BAT:");
+  display.print(nivelBateria());
+  display.print("%");
+}
+
+int nivelBateria(){
+  int cargaBateria = 83;
+  cargaBateria = analogRead(bateria);
+  return map(cargaBateria, 0, 1023, 0, 100);
+  //return cargaBateria;
 }
 
 void ligaFuncaoZero(){
@@ -161,26 +197,22 @@ void ligaFuncaoZero(){
   display.setCursor(0,0);
   //display.print("Z");
   display.write('Z');
-  display.display();
 }
 
-void desligaFuncaoZero(){
+void ligaFuncaoHold(){
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0,0);
-  //display.print("-");
-  display.write(' ');
-  display.display();
+  display.setCursor(10,0);
+  display.print("H");
 }
 
 void mostraAngulo(){
   float angulo = 90.0;
-  display.setTextSize(2);
+  display.setTextSize(3);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(20,10);
+  display.setCursor(30,25);
   display.print(angulo);
   //display.print("º"); //Verificar os símbolos
-  display.display();
 }
 
 void testdrawstyles(void) {
@@ -227,6 +259,10 @@ void testscrolltext(void) {
   delay(2000);
   display.stopscroll();
   delay(1000);
+}
+
+void desenha_90(){
+  display.drawBitmap(2,25,Bitmap90, 20, 20, 1);
 }
 
 void testdrawbitmap(void) {
