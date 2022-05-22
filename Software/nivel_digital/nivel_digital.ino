@@ -4,8 +4,8 @@ Adicionar
 
 POWER ON/OFF
 AUTO POWER OFF
-Nível de bateria
-indicação do ZERO
+Aviso de bateria fraca
+Indicação do ZERO
 Indicação de HOLD
 RANGE 0-90° E 0-180°
 
@@ -25,18 +25,34 @@ RANGE 0-90° E 0-180°
 // On an arduino MEGA 2560: 20(SDA), 21(SCL)
 // On an arduino LEONARDO:   2(SDA),  3(SCL), ...
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS 0x3D ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define LOGO_HEIGHT   64
 #define LOGO_WIDTH    128
+#define M_POS_X       22
+#define M_POS_Y       36
 
-// '90', 20x20px
-const unsigned char Bitmap90 [] PROGMEM = {
-  0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0xc0, 0x00, 0x00, 0xe0, 
-  0x00, 0x00, 0x9c, 0x00, 0x00, 0x83, 0x00, 0x00, 0x80, 0x80, 0x00, 0x80, 0x40, 0x00, 0x80, 0x20, 
-  0x00, 0x80, 0x30, 0x00, 0x80, 0x10, 0x00, 0x80, 0x18, 0x00, 0x80, 0x08, 0x00, 0x80, 0x08, 0x00, 
-  0x80, 0x08, 0x00, 0x80, 0x0c, 0x00, 0x80, 0x04, 0x00, 0xff, 0xff, 0xf0
+// 'angulo180', 25x14px
+const unsigned char bitmap_angulo180 [] PROGMEM = {
+  0x00, 0x1c, 0x00, 0x00, 0x00, 0xdd, 0x80, 0x00, 0x03, 0xdd, 0xe0, 0x00, 0x07, 0x1c, 0x70, 0x00, 
+  0x0e, 0x1c, 0x38, 0x00, 0x1c, 0x1c, 0x1c, 0x00, 0x38, 0x1c, 0x0e, 0x00, 0x30, 0x1c, 0x06, 0x00, 
+  0x60, 0x1c, 0x03, 0x00, 0x60, 0x1c, 0x03, 0x00, 0x60, 0x1c, 0x03, 0x00, 0x00, 0x1c, 0x00, 0x00, 
+  0xff, 0xff, 0xff, 0x80, 0xff, 0xff, 0xff, 0x80
+};
+// 'angulo90', 13x14px
+const unsigned char bitmap_angulo90 [] PROGMEM = {
+  0xc0, 0x00, 0xd8, 0x00, 0xde, 0x00, 0xc7, 0x00, 0xc3, 0x80, 0xc1, 0xc0, 0xc0, 0xe0, 0xc0, 0x60, 
+  0xc0, 0x30, 0xc0, 0x30, 0xc0, 0x30, 0xc0, 0x00, 0xff, 0xf8, 0xff, 0xf8
+};
+
+// 'battery_low', 31x14px
+const unsigned char bitmap_battery_low [] PROGMEM = {
+  0xff, 0xff, 0xff, 0xf8, 0xff, 0xff, 0xff, 0xf8, 0xc0, 0x00, 0x00, 0x18, 0xd8, 0x00, 0x00, 0x18, 
+  0xdc, 0x00, 0x00, 0x1e, 0xdc, 0x00, 0x00, 0x1e, 0xdc, 0x00, 0x00, 0x1e, 0xde, 0x00, 0x00, 0x1e, 
+  0xde, 0x00, 0x00, 0x1e, 0xde, 0x00, 0x00, 0x1e, 0xdf, 0x00, 0x00, 0x18, 0xc0, 0x00, 0x00, 0x18, 
+  0xff, 0xff, 0xff, 0xf8, 0xff, 0xff, 0xff, 0xf8
 };
 
 // 'logos_senai_preto', 128x64px
@@ -121,8 +137,8 @@ int range = 90;
 void setup() {
   Serial.begin(9600);
 
-  pinMode(bt_zero, INPUT);
-  pinMode(bt_hold, INPUT);
+  pinMode(bt_zero, INPUT_PULLUP);
+  pinMode(bt_hold, INPUT_PULLUP);
   pinMode(LED_BUILTIN, OUTPUT);
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
@@ -130,25 +146,9 @@ void setup() {
     Serial.println(F("SSD1306 allocation failed"));
     for(;;); // Don't proceed, loop forever
   }
-
-  // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
-  //display.display();
-  //delay(1000); // Pause for 2 seconds
-
-  // Clear the buffer
-  //display.clearDisplay();
-
-  // Draw a single pixel in white
-  //display.drawPixel(10, 10, SSD1306_WHITE);
-
-  //display.display();
-  //delay(500);
-
-  testdrawbitmap();
+  
+  desenhaLogoSENAI();
   delay(1000);
-  //testdrawstyles();
-  display.clearDisplay();
 }
 
 void loop() {
@@ -165,23 +165,18 @@ void loop() {
     else hold = true;
     delay(200);
   }
-  if(range == 90) desenha_90();
-  if(hold) ligaFuncaoHold();
-  if(zeroRelativo) ligaFuncaoZero();
+  //if(range == 90) desenha_90();
+  desenha_180();
+  //if(hold) ligaFuncaoHold();
+  ligaFuncaoHold();
+  //if(zeroRelativo) ligaFuncaoZero();
+  ligaFuncaoZero();
+  
   mostraAngulo();
-  mostraNivelBateria();
+  desenhaBateriaBaixa();
 
   display.display();
   delay(100);
-}
-
-void mostraNivelBateria(){
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(80,0);
-  display.print("BAT:");
-  display.print(nivelBateria());
-  display.print("%");
 }
 
 int nivelBateria(){
@@ -192,27 +187,45 @@ int nivelBateria(){
 }
 
 void ligaFuncaoZero(){
-  display.setTextSize(1);
+  display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0,0);
+  display.setCursor(40,0);
   //display.print("Z");
   display.write('Z');
 }
 
 void ligaFuncaoHold(){
-  display.setTextSize(1);
+  display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(10,0);
+  display.setCursor(60,0);
   display.print("H");
 }
 
+float leAngulo(){
+  float angulo = 45;
+  return angulo;
+}
+
 void mostraAngulo(){
-  float angulo = 90.0;
-  display.setTextSize(3);
+  display.setTextSize(4);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(30,25);
-  display.print(angulo);
-  //display.print("º"); //Verificar os símbolos
+  display.setCursor(M_POS_X,M_POS_Y);
+  display.print(String(leAngulo(),1));
+  display.drawCircle(M_POS_X + 100, M_POS_Y + 3, 3, SSD1306_WHITE);
+}
+
+void desenha_90(){
+  display.drawBitmap(80, 0, bitmap_angulo90, 13, 14, 1);
+}
+
+void desenha_180(){
+  display.drawBitmap(80, 0, bitmap_angulo180, 25, 14, 1);
+}
+
+// 'battery_low', 31x14px
+//const unsigned char bitmap_battery_low [] PROGMEM = {
+void desenhaBateriaBaixa(){
+  display.drawBitmap(0, 0, bitmap_battery_low, 31, 14, 1);
 }
 
 void testdrawstyles(void) {
@@ -261,17 +274,11 @@ void testscrolltext(void) {
   delay(1000);
 }
 
-void desenha_90(){
-  display.drawBitmap(2,25,Bitmap90, 20, 20, 1);
-}
-
-void testdrawbitmap(void) {
+void desenhaLogoSENAI(void) {
   display.clearDisplay();
-
   display.drawBitmap(
     (display.width()  - LOGO_WIDTH ) / 2,
     (display.height() - LOGO_HEIGHT) / 2,
     logo_senai_preto, LOGO_WIDTH, LOGO_HEIGHT, 1);
   display.display();
-  delay(1000);
 }
