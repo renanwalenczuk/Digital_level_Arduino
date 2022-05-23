@@ -1,4 +1,6 @@
-/**************************************************************************
+#include <Arduino.h>
+
+/*TODO**********************************************************************
 Adicionar
 
 RANGE 0-90° E 0-180°
@@ -7,8 +9,7 @@ Ajustar leitura do sensor
 ZERO RELATIVO
 Verificar as medições relativas ou absolutas
 
-HOLD
-Mantém o valor da leitura na tela
+AUTO ROTATE
 
 **************************************************************************/
 
@@ -31,10 +32,13 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 //ADXL345 adxl = ADXL345(10);           // USE FOR SPI COMMUNICATION, ADXL345(CS_PIN);
 ADXL345 adxl = ADXL345();             // USE FOR I2C COMMUNICATION
 
+//Constantes
 #define LOGO_HEIGHT   64
 #define LOGO_WIDTH    128
 #define M_POS_X       22
 #define M_POS_Y       36
+
+#define BATERIA_BAIXA 30
 
 // 'angulo180', 25x14px
 const unsigned char bitmap_angulo180 [] PROGMEM = {
@@ -128,13 +132,29 @@ const unsigned char logo_senai_preto [] PROGMEM = {
 //Entradas
 int bt_zero = 2;
 int bt_hold = 3;
-const int bateria = A0;
-
+const int pinoBateria = A0;
 
 //Variáveis globais
 bool zeroRelativo = false;
 bool hold = false;
 int range = 90;
+float anguloAtual = 0, anguloRelativo = 0;
+int x,y,z;
+
+//Funções do usuário
+
+void configuraAcelerometro(void);
+void desenhaLogoSENAI();
+void desenha_90();
+void desenha_180();
+void ligaFuncaoZero();
+void ligaFuncaoHold();
+void desenhaBateriaBaixa();
+int leAcelerometro();
+void mostraAngulo(float);
+int nivelBateria();
+float converteAngulo();
+
 
 void setup() {
   Serial.begin(9600);
@@ -159,31 +179,48 @@ void loop() {
 
   display.clearDisplay();
   if(digitalRead(bt_zero) == 0){
-    if(zeroRelativo) zeroRelativo = false;
-    else zeroRelativo = true;
+    if(zeroRelativo){
+      zeroRelativo = false;
+      anguloRelativo = 0;
+    }
+    else{
+      zeroRelativo = true;
+      anguloRelativo = anguloAtual;
+    }
     delay(200);
   }
+
   if(digitalRead(bt_hold) == 0){
     if(hold) hold = false;
     else hold = true;
     delay(200);
   }
-  if(range == 90) desenha_90();
-  else desenha_180();
-  if(hold) ligaFuncaoHold();
-  if(zeroRelativo) ligaFuncaoZero();
-  mostraAngulo();
-  if(nivelBateria() < 20) desenhaBateriaBaixa();
 
   leAcelerometro();
+
+  if(z < 0) display.setRotation(2);
+  else display.setRotation(0);
+
+  if(range == 90) desenha_90();
+  else desenha_180();
+
+  if(hold) ligaFuncaoHold();
+
+  if(zeroRelativo) ligaFuncaoZero();
+  
+  if(nivelBateria() < BATERIA_BAIXA) desenhaBateriaBaixa();
+
+  if(!hold) anguloAtual = abs(converteAngulo() - anguloRelativo);
+
+  mostraAngulo(anguloAtual);
 
   display.display();
   delay(100);
 }
 
-void leAcelerometro(){
+int leAcelerometro(){
     // Accelerometer Readings
-  int x,y,z;   
+  //int x,y,z;   
   adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
 
   // Output Results to Serial
@@ -193,12 +230,13 @@ void leAcelerometro(){
   Serial.print(y);
   Serial.print(", ");
   Serial.println(z);
+  return y;
 }
 
 void configuraAcelerometro(){
   adxl.powerOn();                     // Power on the ADXL345
 
-  adxl.setRangeSetting(16);           // Give the range settings
+  adxl.setRangeSetting(8);           // Give the range settings
                                       // Accepted values are 2g, 4g, 8g or 16g
                                       // Higher Values = Wider Measurement Range
                                       // Lower Values = Greater Sensitivity
@@ -240,10 +278,10 @@ void configuraAcelerometro(){
 }
 
 int nivelBateria(){
-  int cargaBateria = 83;
-  cargaBateria = analogRead(bateria);
-  return map(cargaBateria, 0, 1023, 0, 100);
-  //return cargaBateria;
+  int cargaBateria = 100;
+  //cargaBateria = analogRead(pinoBateria);
+  //return map(cargaBateria, 0, 1023, 0, 100);
+  return cargaBateria;
 }
 
 void ligaFuncaoZero(){
@@ -261,17 +299,20 @@ void ligaFuncaoHold(){
   display.print("H");
 }
 
-float leAngulo(){
-  //Comunicação com ADXL345
-  float angulo = 45;
+float converteAngulo(){
+  float angulo;
+  if(range == 90) angulo = map(abs(y), 0, 66, 0, 90);
+  else angulo = map(abs(y), 0, 66, 0, 90);
+  if(angulo > 90) angulo = 90;
+  if(angulo < 0) angulo = 0;
   return angulo;
 }
 
-void mostraAngulo(){
+void mostraAngulo(float angulo){
   display.setTextSize(4);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(M_POS_X,M_POS_Y);
-  display.print(String(leAngulo(),1));
+  display.print(String(angulo,1));
   display.drawCircle(M_POS_X + 100, M_POS_Y + 3, 3, SSD1306_WHITE);
 }
 
@@ -283,8 +324,6 @@ void desenha_180(){
   display.drawBitmap(80, 0, bitmap_angulo180, 25, 14, 1);
 }
 
-// 'battery_low', 31x14px
-//const unsigned char bitmap_battery_low [] PROGMEM = {
 void desenhaBateriaBaixa(){
   display.drawBitmap(0, 0, bitmap_battery_low, 31, 14, 1);
 }
