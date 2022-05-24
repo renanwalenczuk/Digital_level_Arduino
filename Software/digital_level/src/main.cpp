@@ -35,7 +35,7 @@ ADXL345 adxl = ADXL345();             // USE FOR I2C COMMUNICATION
 //Constantes
 #define LOGO_HEIGHT   64
 #define LOGO_WIDTH    128
-#define M_POS_X       22
+#define M_POS_X       30
 #define M_POS_Y       36
 
 #define BATERIA_BAIXA 30
@@ -143,84 +143,8 @@ int x,y,z;
 
 //Funções do usuário
 
-void configuraAcelerometro(void);
-void desenhaLogoSENAI();
-void desenha_90();
-void desenha_180();
-void ligaFuncaoZero();
-void ligaFuncaoHold();
-void desenhaBateriaBaixa();
-int leAcelerometro();
-void mostraAngulo(float);
-int nivelBateria();
-float converteAngulo();
-
-
-void setup() {
-  Serial.begin(9600);
-  
-  pinMode(bt_zero, INPUT_PULLUP);
-  pinMode(bt_hold, INPUT_PULLUP);
-  pinMode(LED_BUILTIN, OUTPUT);
-
-  configuraAcelerometro();
-
-  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop forever
-  }
-  
-  desenhaLogoSENAI();
-  delay(1000);
-}
-
-void loop() {
-
-  display.clearDisplay();
-  if(digitalRead(bt_zero) == 0){
-    if(zeroRelativo){
-      zeroRelativo = false;
-      anguloRelativo = 0;
-    }
-    else{
-      zeroRelativo = true;
-      anguloRelativo = anguloAtual;
-    }
-    delay(200);
-  }
-
-  if(digitalRead(bt_hold) == 0){
-    if(hold) hold = false;
-    else hold = true;
-    delay(200);
-  }
-
-  leAcelerometro();
-
-  if(z < 0) display.setRotation(2);
-  else display.setRotation(0);
-
-  if(range == 90) desenha_90();
-  else desenha_180();
-
-  if(hold) ligaFuncaoHold();
-
-  if(zeroRelativo) ligaFuncaoZero();
-  
-  if(nivelBateria() < BATERIA_BAIXA) desenhaBateriaBaixa();
-
-  if(!hold) anguloAtual = abs(converteAngulo() - anguloRelativo);
-
-  mostraAngulo(anguloAtual);
-
-  display.display();
-  delay(100);
-}
-
-int leAcelerometro(){
-    // Accelerometer Readings
-  //int x,y,z;   
+void leAcelerometro(){
+  // Accelerometer Readings
   adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
 
   // Output Results to Serial
@@ -230,7 +154,6 @@ int leAcelerometro(){
   Serial.print(y);
   Serial.print(", ");
   Serial.println(z);
-  return y;
 }
 
 void configuraAcelerometro(){
@@ -299,8 +222,8 @@ void ligaFuncaoHold(){
   display.print("H");
 }
 
-float converteAngulo(){
-  float angulo;
+int converteAngulo(){
+  int angulo;
   if(range == 90) angulo = map(abs(y), 0, 66, 0, 90);
   else angulo = map(abs(y), 0, 66, 0, 90);
   if(angulo > 90) angulo = 90;
@@ -308,12 +231,16 @@ float converteAngulo(){
   return angulo;
 }
 
-void mostraAngulo(float angulo){
+void mostraAngulo(int angulo){
   display.setTextSize(4);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(M_POS_X,M_POS_Y);
-  display.print(String(angulo,1));
-  display.drawCircle(M_POS_X + 100, M_POS_Y + 3, 3, SSD1306_WHITE);
+
+  char texto[5];
+  sprintf(texto,"%3i", angulo);
+  display.print(texto);
+
+  display.drawCircle(M_POS_X + 75, M_POS_Y + 3, 3, SSD1306_WHITE);
 }
 
 void desenha_90(){
@@ -335,4 +262,68 @@ void desenhaLogoSENAI(void) {
     (display.height() - LOGO_HEIGHT) / 2,
     logo_senai_preto, LOGO_WIDTH, LOGO_HEIGHT, 1);
   display.display();
+}
+
+void setup() {
+  Serial.begin(9600);
+  
+  pinMode(bt_zero, INPUT_PULLUP);
+  pinMode(bt_hold, INPUT_PULLUP);
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  configuraAcelerometro();
+
+  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop forever
+  }
+  
+  desenhaLogoSENAI();
+  delay(1000);
+}
+
+void loop() {
+
+  display.clearDisplay();
+
+  if(digitalRead(bt_zero) == 0){
+    if(zeroRelativo){
+      zeroRelativo = false;
+      anguloRelativo = 0;
+    }
+    else{
+      zeroRelativo = true;
+      anguloRelativo = anguloAtual;
+    }
+    delay(200);
+  }
+
+  if(digitalRead(bt_hold) == 0){
+    if(hold) hold = false;
+    else hold = true;
+    delay(200);
+  }
+
+  leAcelerometro();
+
+  if(z < 0) display.setRotation(2);
+  else display.setRotation(0);
+
+  if(range == 90) desenha_90();
+  else desenha_180();
+
+  if(hold) ligaFuncaoHold();
+
+  if(zeroRelativo) ligaFuncaoZero();
+  
+  if(nivelBateria() < BATERIA_BAIXA) desenhaBateriaBaixa();
+
+  if(!hold) anguloAtual = converteAngulo() - anguloRelativo;
+  if(anguloAtual < 0) anguloAtual = abs(anguloAtual);
+
+  mostraAngulo(anguloAtual);
+
+  display.display();
+  delay(100);
 }
