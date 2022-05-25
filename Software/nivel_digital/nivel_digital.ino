@@ -172,16 +172,17 @@ void loop() {
   else desenha_180();
   if(hold) ligaFuncaoHold();
   if(zeroRelativo) ligaFuncaoZero();
-  mostraAngulo();
+  
   if(nivelBateria() < 20) desenhaBateriaBaixa();
 
   leAcelerometro();
+  mostraAngulo();
 
   display.display();
   delay(100);
 }
 
-void leAcelerometro(){
+int leAcelerometro(){
     // Accelerometer Readings
   int x,y,z;   
   adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
@@ -193,6 +194,7 @@ void leAcelerometro(){
   Serial.print(y);
   Serial.print(", ");
   Serial.println(z);
+  return y;
 }
 
 void configuraAcelerometro(){
