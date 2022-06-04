@@ -139,8 +139,9 @@ const unsigned char logo_senai_preto [] PROGMEM = {
 };
 
 //Entradas
-int bt_zero = 2;
-int bt_hold = 3;
+int bt_zero = 5;
+int bt_hold = 6;
+int bt_range = 7;
 const int pinoBateria = A0;
 
 //Variáveis globais
@@ -233,8 +234,8 @@ void ligaFuncaoHold(){
 
 int converteAngulo(){
   int angulo;
-  if(range == 90) angulo = map(abs(y), 0, 66, 0, 90);
-  else angulo = map(abs(y), 0, 66, 0, 90);
+  if(range == 90) angulo = map(abs(x), 0, 66, 0, 90);
+  else angulo = map(abs(x), 0, 66, 0, 90);
   if(angulo > 90) angulo = 90;
   if(angulo < 0) angulo = 0;
   return angulo;
@@ -283,6 +284,7 @@ void setup() {
   
   pinMode(bt_zero, INPUT_PULLUP);
   pinMode(bt_hold, INPUT_PULLUP);
+  pinMode(bt_range, INPUT_PULLUP);
   pinMode(LED_BUILTIN, OUTPUT);
 
   configuraAcelerometro();
@@ -319,11 +321,17 @@ void loop() {
     delay(200);
   }
 
+  if(digitalRead(bt_range) == 0){
+    if(range == 90) range = 180;
+    else range = 90;
+    delay(200);
+  }
+
   desenhaSeta();
 
   leAcelerometro();
 
-  if(z < 0) display.setRotation(2);
+  if(y < 0) display.setRotation(2);
   else display.setRotation(0);
 
   if(range == 90) desenha_90();

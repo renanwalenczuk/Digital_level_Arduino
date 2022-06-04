@@ -917,12 +917,31 @@
 <text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
 </symbol>
+<symbol name="+3V3" urn="urn:adsk.eagle:symbol:26950/1" library_version="1">
+<wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
+<text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<pin name="+3V3" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="GND" urn="urn:adsk.eagle:component:26954/1" prefix="GND" library_version="1">
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
 <gate name="1" symbol="GND" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="+3V3" urn="urn:adsk.eagle:component:26981/1" prefix="+3V3" library_version="1">
+<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="+3V3" x="0" y="0"/>
 </gates>
 <devices>
 <device name="">
@@ -980,11 +999,37 @@ DIN A4, landscape with location and doc. field</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="switch-omron" urn="urn:adsk.eagle:library:377">
-<description>&lt;b&gt;Omron Switches&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<library name="GEAP">
 <packages>
-<package name="B3F-10XX" urn="urn:adsk.eagle:footprint:27476/1" library_version="3">
+<package name="OLED_0.96_I2C" urn="urn:adsk.eagle:footprint:30876133/1">
+<pad name="SDA" x="3.45" y="11.63" drill="1" diameter="1.778" rot="R180"/>
+<pad name="SCL" x="0.91" y="11.63" drill="1" diameter="1.778" rot="R180"/>
+<pad name="GND" x="-1.63" y="11.63" drill="1" diameter="1.778" rot="R180"/>
+<pad name="VCC" x="-4.17" y="11.63" drill="1" diameter="1.778" rot="R270"/>
+<wire x1="10.33" y1="-13.97" x2="5.08" y2="-13.97" width="0.127" layer="21"/>
+<wire x1="5.08" y1="-13.97" x2="3.81" y2="-12.7" width="0.127" layer="21"/>
+<wire x1="3.81" y1="-12.7" x2="-5.08" y2="-12.7" width="0.127" layer="21"/>
+<wire x1="-5.08" y1="-12.7" x2="-6.35" y2="-13.97" width="0.127" layer="21"/>
+<wire x1="-6.35" y1="-13.97" x2="-10.97" y2="-13.97" width="0.127" layer="21"/>
+<wire x1="-10.97" y1="-13.97" x2="-13.97" y2="-10.97" width="0.127" layer="21" curve="-90"/>
+<wire x1="-13.97" y1="-10.97" x2="-13.97" y2="-9.82" width="0.127" layer="21"/>
+<wire x1="-13.97" y1="-9.82" x2="-13.97" y2="9.18" width="0.127" layer="21"/>
+<wire x1="-13.97" y1="9.18" x2="-13.97" y2="10.33" width="0.127" layer="21"/>
+<wire x1="-13.97" y1="10.33" x2="-10.97" y2="13.33" width="0.127" layer="21" curve="-90"/>
+<wire x1="-10.97" y1="13.33" x2="10.33" y2="13.33" width="0.127" layer="21"/>
+<wire x1="10.33" y1="13.33" x2="13.33" y2="10.33" width="0.127" layer="21" curve="-90"/>
+<wire x1="13.33" y1="10.33" x2="13.33" y2="9.18" width="0.127" layer="21"/>
+<wire x1="13.33" y1="9.18" x2="13.33" y2="-9.82" width="0.127" layer="21"/>
+<wire x1="13.33" y1="-9.82" x2="13.33" y2="-10.97" width="0.127" layer="21"/>
+<wire x1="13.33" y1="-10.97" x2="10.33" y2="-13.97" width="0.127" layer="21" curve="-90"/>
+<wire x1="-13.97" y1="9.18" x2="13.33" y2="9.18" width="0.127" layer="21"/>
+<wire x1="-13.97" y1="-9.82" x2="13.33" y2="-9.82" width="0.127" layer="21"/>
+<hole x="-10.67" y="-11.97" drill="2"/>
+<hole x="10.03" y="-11.97" drill="2"/>
+<hole x="10.03" y="11.33" drill="2"/>
+<hole x="-10.67" y="11.33" drill="2"/>
+</package>
+<package name="B3F-10XX" urn="urn:adsk.eagle:footprint:27476/1">
 <description>&lt;b&gt;OMRON SWITCH&lt;/b&gt;</description>
 <wire x1="3.302" y1="-0.762" x2="3.048" y2="-0.762" width="0.1524" layer="21"/>
 <wire x1="3.302" y1="-0.762" x2="3.302" y2="0.762" width="0.1524" layer="21"/>
@@ -1047,9 +1092,37 @@ DIN A4, landscape with location and doc. field</description>
 <text x="-4.572" y="-2.794" size="1.27" layer="51" ratio="10">3</text>
 <text x="3.556" y="-2.794" size="1.27" layer="51" ratio="10">4</text>
 </package>
+<package name="MODULO_ADXL345">
+<description>Módulo ADXL345 + ITG3200 Sparkfun</description>
+<pad name="4" x="1.27" y="6.35" drill="0.9" diameter="1.8"/>
+<pad name="3" x="1.27" y="8.89" drill="0.9" diameter="1.8"/>
+<pad name="5" x="1.27" y="3.81" drill="0.9" diameter="1.8"/>
+<pad name="1" x="1.27" y="13.97" drill="0.9" diameter="1.8"/>
+<pad name="2" x="1.27" y="11.43" drill="0.9" diameter="1.8"/>
+<wire x1="0" y1="0" x2="0" y2="15.24" width="0.127" layer="21"/>
+<wire x1="0" y1="15.24" x2="16.51" y2="15.24" width="0.127" layer="21"/>
+<wire x1="16.51" y1="15.24" x2="16.51" y2="0" width="0.127" layer="21"/>
+<wire x1="16.51" y1="0" x2="0" y2="0" width="0.127" layer="21"/>
+<hole x="13.97" y="12.3825" drill="3.429"/>
+<hole x="13.97" y="2.8575" drill="3.429"/>
+<text x="8.128" y="5.842" size="1.27" layer="21">ADXL345
+ITG3200</text>
+<pad name="6" x="1.27" y="1.27" drill="0.9" diameter="1.8"/>
+<text x="3.048" y="13.462" size="1.27" layer="21">3.3V</text>
+<text x="3.048" y="10.922" size="1.27" layer="21">GND</text>
+<text x="3.048" y="8.382" size="1.27" layer="21">SDA</text>
+<text x="3.048" y="5.842" size="1.27" layer="21">SCL</text>
+<text x="3.048" y="3.302" size="1.27" layer="21">INT1</text>
+<text x="3.048" y="0.762" size="1.27" layer="21">INT0</text>
+</package>
 </packages>
 <packages3d>
-<package3d name="B3F-10XX" urn="urn:adsk.eagle:package:27496/1" type="box" library_version="3">
+<package3d name="OLED_0.96_I2C" urn="urn:adsk.eagle:package:30876132/2" type="model">
+<packageinstances>
+<packageinstance name="OLED_0.96_I2C"/>
+</packageinstances>
+</package3d>
+<package3d name="B3F-10XX" urn="urn:adsk.eagle:package:35685920/2" type="model">
 <description>OMRON SWITCH</description>
 <packageinstances>
 <packageinstance name="B3F-10XX"/>
@@ -1057,7 +1130,19 @@ DIN A4, landscape with location and doc. field</description>
 </package3d>
 </packages3d>
 <symbols>
-<symbol name="TS2" urn="urn:adsk.eagle:symbol:27469/1" library_version="3">
+<symbol name="OLED_0.96_I2C">
+<wire x1="-10.16" y1="7.62" x2="7.62" y2="7.62" width="0.254" layer="94"/>
+<wire x1="7.62" y1="7.62" x2="7.62" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="7.62" y1="-7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-7.62" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
+<pin name="SCL" x="0" y="-10.16" length="middle" rot="R90"/>
+<pin name="VCC" x="-5.08" y="-10.16" length="middle" rot="R90"/>
+<pin name="GND" x="-2.54" y="-10.16" length="middle" rot="R90"/>
+<pin name="SDA" x="2.54" y="-10.16" length="middle" rot="R90"/>
+<text x="-10.668" y="-7.112" size="1.27" layer="95" rot="R90">&gt;NAME</text>
+<text x="-10.668" y="0.508" size="1.27" layer="96" rot="R90">&gt;VALUE</text>
+</symbol>
+<symbol name="TS2">
 <wire x1="0" y1="1.905" x2="0" y2="2.54" width="0.254" layer="94"/>
 <wire x1="-4.445" y1="1.905" x2="-3.175" y2="1.905" width="0.254" layer="94"/>
 <wire x1="-4.445" y1="-1.905" x2="-3.175" y2="-1.905" width="0.254" layer="94"/>
@@ -1078,15 +1163,56 @@ DIN A4, landscape with location and doc. field</description>
 <pin name="S1" x="2.54" y="5.08" visible="pad" length="short" direction="pas" swaplevel="1" rot="R270"/>
 <pin name="P1" x="2.54" y="-5.08" visible="pad" length="short" direction="pas" swaplevel="2" rot="R90"/>
 </symbol>
+<symbol name="ADXL345">
+<description>Módulo Acelerômetro ADXL345 + Giroscópio ITG-3200
+SparkFun https://www.sparkfun.com/products/retired/10121</description>
+<pin name="INT1" x="22.86" y="5.08" length="middle" direction="out" rot="R180"/>
+<pin name="INT0" x="22.86" y="7.62" length="middle" direction="out" rot="R180"/>
+<pin name="SDA" x="22.86" y="10.16" length="middle" rot="R180"/>
+<pin name="SCL" x="22.86" y="12.7" length="middle" direction="in" rot="R180"/>
+<pin name="3.3V" x="22.86" y="15.24" length="middle" direction="pwr" rot="R180"/>
+<pin name="GND" x="22.86" y="2.54" length="middle" direction="pwr" rot="R180"/>
+<wire x1="0" y1="0" x2="0" y2="17.78" width="0.254" layer="94"/>
+<wire x1="0" y1="17.78" x2="17.78" y2="17.78" width="0.254" layer="94"/>
+<wire x1="17.78" y1="17.78" x2="17.78" y2="0" width="0.254" layer="94"/>
+<wire x1="17.78" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
+<text x="-2.54" y="2.54" size="1.27" layer="95" rot="R90">&gt;NAME</text>
+<text x="5.08" y="20.32" size="1.27" layer="95">&gt;VALUE</text>
+<text x="7.62" y="15.24" size="1.778" layer="94" rot="R180">6DOF
+digital</text>
+<text x="1.27" y="2.54" size="1.27" layer="94">ADXL
+ITG-3200</text>
+</symbol>
 </symbols>
 <devicesets>
-<deviceset name="10-XX" urn="urn:adsk.eagle:component:27498/2" prefix="S" uservalue="yes" library_version="3">
+<deviceset name="OLED_0.96_I2C" prefix="DS" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="OLED_0.96_I2C" x="2.54" y="0"/>
+</gates>
+<devices>
+<device name="" package="OLED_0.96_I2C">
+<connects>
+<connect gate="G$1" pin="GND" pad="GND"/>
+<connect gate="G$1" pin="SCL" pad="SCL"/>
+<connect gate="G$1" pin="SDA" pad="SDA"/>
+<connect gate="G$1" pin="VCC" pad="VCC"/>
+</connects>
+<package3dinstances>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:30876132/2"/>
+</package3dinstances>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="10-XX" prefix="S" uservalue="yes">
 <description>&lt;b&gt;OMRON SWITCH&lt;/b&gt;</description>
 <gates>
 <gate name="1" symbol="TS2" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="B3F-10XX">
+<device name="PUSH-BUTTON-5MM" package="B3F-10XX">
 <connects>
 <connect gate="1" pin="P" pad="3"/>
 <connect gate="1" pin="P1" pad="4"/>
@@ -1094,16 +1220,31 @@ DIN A4, landscape with location and doc. field</description>
 <connect gate="1" pin="S1" pad="2"/>
 </connects>
 <package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:27496/1"/>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:35685920/2"/>
 </package3dinstances>
 <technologies>
-<technology name="">
-<attribute name="MF" value="" constant="no"/>
-<attribute name="MPN" value="B3F-1000" constant="no"/>
-<attribute name="OC_FARNELL" value="176432" constant="no"/>
-<attribute name="OC_NEWARK" value="36M3542" constant="no"/>
-<attribute name="POPULARITY" value="72" constant="no"/>
-</technology>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="MODULO_ADXL345" prefix="IC">
+<description>Módulo Acelerômetro ADXL345 + Giroscópio ITG-3200 SparkFun https://www.sparkfun.com/products/retired/10121</description>
+<gates>
+<gate name="G$1" symbol="ADXL345" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="MODULO_ADXL345">
+<connects>
+<connect gate="G$1" pin="3.3V" pad="1"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="INT0" pad="6"/>
+<connect gate="G$1" pin="INT1" pad="5"/>
+<connect gate="G$1" pin="SCL" pad="4"/>
+<connect gate="G$1" pin="SDA" pad="3"/>
+</connects>
+<technologies>
+<technology name=""/>
 </technologies>
 </device>
 </devices>
@@ -1132,6 +1273,9 @@ DIN A4, landscape with location and doc. field</description>
 <clearance class="4" value="0.254"/>
 </class>
 </classes>
+<groups>
+<schematic_group name="ARDUINO"/>
+</groups>
 <parts>
 <part name="IOL" library="SmartPrj" deviceset="PINHD-1X8" device="" value="8x1F-H8.5"/>
 <part name="IOH" library="SmartPrj" deviceset="PINHD-1X10_ARD" device="" value="10x1F-H8.5"/>
@@ -1140,63 +1284,102 @@ DIN A4, landscape with location and doc. field</description>
 <part name="POWER" library="SmartPrj" deviceset="PINHD-1X8" device="" value="8x1F-H8.5"/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="FRAME1" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
-<part name="S1" library="switch-omron" library_urn="urn:adsk.eagle:library:377" deviceset="10-XX" device="" package3d_urn="urn:adsk.eagle:package:27496/1"/>
-<part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="U$1" library="GEAP" deviceset="OLED_0.96_I2C" device="" package3d_urn="urn:adsk.eagle:package:30876132/2"/>
+<part name="S2" library="GEAP" deviceset="10-XX" device="PUSH-BUTTON-5MM" package3d_urn="urn:adsk.eagle:package:35685920/2"/>
+<part name="S3" library="GEAP" deviceset="10-XX" device="PUSH-BUTTON-5MM" package3d_urn="urn:adsk.eagle:package:35685920/2"/>
+<part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="S4" library="GEAP" deviceset="10-XX" device="PUSH-BUTTON-5MM" package3d_urn="urn:adsk.eagle:package:35685920/2"/>
+<part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
+<part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="P+1" library="supply1" deviceset="+5V" device=""/>
+<part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="IC1" library="GEAP" deviceset="MODULO_ADXL345" device=""/>
 </parts>
 <sheets>
 <sheet>
 <plain>
-<text x="233.045" y="41.91" size="1.778" layer="91">0</text>
-<text x="233.045" y="44.45" size="1.778" layer="91">1</text>
-<text x="233.045" y="46.99" size="1.778" layer="91">2</text>
-<text x="233.045" y="49.53" size="1.778" layer="91">3</text>
-<text x="233.045" y="52.07" size="1.778" layer="91">4</text>
-<text x="233.045" y="54.61" size="1.778" layer="91">5</text>
-<text x="233.045" y="57.15" size="1.778" layer="91">6</text>
-<text x="233.045" y="59.69" size="1.778" layer="91">7</text>
-<text x="233.68" y="99.06" size="1.778" layer="91">8</text>
-<text x="233.68" y="101.6" size="1.778" layer="91">9</text>
-<text x="233.68" y="104.14" size="1.778" layer="91">10</text>
-<text x="233.68" y="106.68" size="1.778" layer="91">11</text>
-<text x="233.68" y="109.22" size="1.778" layer="91">12</text>
-<text x="233.68" y="111.76" size="1.778" layer="91">13</text>
-<text x="233.68" y="119.38" size="1.778" layer="91">SDA</text>
-<text x="233.68" y="121.92" size="1.778" layer="91">SCL</text>
+<text x="230.505" y="36.83" size="1.778" layer="91" grouprefs="ARDUINO">0</text>
+<text x="230.505" y="39.37" size="1.778" layer="91" grouprefs="ARDUINO">1</text>
+<text x="230.505" y="41.91" size="1.778" layer="91" grouprefs="ARDUINO">2</text>
+<text x="230.505" y="44.45" size="1.778" layer="91" grouprefs="ARDUINO">3</text>
+<text x="230.505" y="46.99" size="1.778" layer="91" grouprefs="ARDUINO">4</text>
+<text x="230.505" y="49.53" size="1.778" layer="91" grouprefs="ARDUINO">5</text>
+<text x="230.505" y="52.07" size="1.778" layer="91" grouprefs="ARDUINO">6</text>
+<text x="230.505" y="54.61" size="1.778" layer="91" grouprefs="ARDUINO">7</text>
+<text x="231.14" y="93.98" size="1.778" layer="91" grouprefs="ARDUINO">8</text>
+<text x="231.14" y="96.52" size="1.778" layer="91" grouprefs="ARDUINO">9</text>
+<text x="231.14" y="99.06" size="1.778" layer="91" grouprefs="ARDUINO">10</text>
+<text x="231.14" y="101.6" size="1.778" layer="91" grouprefs="ARDUINO">11</text>
+<text x="231.14" y="104.14" size="1.778" layer="91" grouprefs="ARDUINO">12</text>
+<text x="231.14" y="106.68" size="1.778" layer="91" grouprefs="ARDUINO">13</text>
+<text x="231.14" y="114.3" size="1.778" layer="91" grouprefs="ARDUINO">SDA</text>
+<text x="231.14" y="116.84" size="1.778" layer="91" grouprefs="ARDUINO">SCL</text>
+<text x="30.48" y="93.98" size="1.778" layer="97">ZERO</text>
+<text x="30.48" y="81.28" size="1.778" layer="97">HOLD</text>
+<text x="30.48" y="68.58" size="1.778" layer="97">RANGE</text>
 </plain>
 <instances>
-<instance part="IOL" gate="A" x="231.14" y="53.34" smashed="yes" rot="MR180">
-<attribute name="NAME" x="224.79" y="40.005" size="1.778" layer="95" rot="MR180"/>
-<attribute name="VALUE" x="224.79" y="66.04" size="1.778" layer="96" rot="MR180"/>
+<instance part="IOL" gate="A" x="228.6" y="48.26" smashed="yes" rot="MR180" grouprefs="ARDUINO">
+<attribute name="NAME" x="222.25" y="34.925" size="1.778" layer="95" rot="MR180"/>
+<attribute name="VALUE" x="222.25" y="60.96" size="1.778" layer="96" rot="MR180"/>
 </instance>
-<instance part="IOH" gate="A" x="231.14" y="109.22" smashed="yes" rot="MR180">
-<attribute name="NAME" x="224.79" y="95.885" size="1.778" layer="95" rot="MR180"/>
-<attribute name="VALUE" x="224.79" y="127" size="1.778" layer="96" rot="MR180"/>
+<instance part="IOH" gate="A" x="228.6" y="104.14" smashed="yes" rot="MR180" grouprefs="ARDUINO">
+<attribute name="NAME" x="222.25" y="90.805" size="1.778" layer="95" rot="MR180"/>
+<attribute name="VALUE" x="222.25" y="121.92" size="1.778" layer="96" rot="MR180"/>
 </instance>
-<instance part="AD" gate="A" x="231.14" y="81.28" smashed="yes" rot="MR180">
-<attribute name="NAME" x="224.79" y="70.485" size="1.778" layer="95" rot="MR180"/>
-<attribute name="VALUE" x="224.79" y="91.44" size="1.778" layer="96" rot="MR180"/>
+<instance part="AD" gate="A" x="228.6" y="76.2" smashed="yes" rot="MR180" grouprefs="ARDUINO">
+<attribute name="NAME" x="222.25" y="65.405" size="1.778" layer="95" rot="MR180"/>
+<attribute name="VALUE" x="222.25" y="86.36" size="1.778" layer="96" rot="MR180"/>
 </instance>
-<instance part="P+4" gate="1" x="205.74" y="154.94" smashed="yes">
-<attribute name="VALUE" x="207.645" y="157.48" size="1.778" layer="96" rot="R180"/>
+<instance part="P+4" gate="1" x="208.28" y="149.86" smashed="yes" grouprefs="ARDUINO">
+<attribute name="VALUE" x="210.185" y="152.4" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="POWER" gate="A" x="231.14" y="142.24" smashed="yes">
-<attribute name="NAME" x="224.79" y="155.575" size="1.778" layer="95"/>
-<attribute name="VALUE" x="224.79" y="129.54" size="1.778" layer="96"/>
+<instance part="POWER" gate="A" x="228.6" y="137.16" smashed="yes" grouprefs="ARDUINO">
+<attribute name="NAME" x="222.25" y="150.495" size="1.778" layer="95"/>
+<attribute name="VALUE" x="222.25" y="124.46" size="1.778" layer="96"/>
 </instance>
-<instance part="GND1" gate="1" x="208.28" y="132.08" smashed="yes">
-<attribute name="VALUE" x="205.74" y="129.54" size="1.778" layer="96"/>
+<instance part="GND1" gate="1" x="208.28" y="127" smashed="yes" grouprefs="ARDUINO">
+<attribute name="VALUE" x="205.74" y="124.46" size="1.778" layer="96"/>
 </instance>
 <instance part="FRAME1" gate="G$1" x="0" y="0" smashed="yes">
 <attribute name="DRAWING_NAME" x="217.17" y="15.24" size="2.54" layer="94"/>
 <attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
 <attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
 </instance>
-<instance part="S1" gate="1" x="198.12" y="139.7" smashed="yes">
-<attribute name="NAME" x="191.77" y="137.16" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="194.31" y="142.875" size="1.778" layer="96" rot="R90"/>
+<instance part="U$1" gate="G$1" x="142.24" y="129.54" smashed="yes" rot="R270">
+<attribute name="NAME" x="135.128" y="140.208" size="1.27" layer="95"/>
+<attribute name="VALUE" x="142.748" y="140.208" size="1.27" layer="96"/>
 </instance>
-<instance part="GND2" gate="1" x="200.66" y="132.08" smashed="yes">
-<attribute name="VALUE" x="198.12" y="129.54" size="1.778" layer="96"/>
+<instance part="S2" gate="1" x="48.26" y="96.52" smashed="yes" rot="R270">
+<attribute name="NAME" x="45.72" y="102.87" size="1.778" layer="95"/>
+<attribute name="VALUE" x="51.435" y="100.33" size="1.778" layer="96"/>
+</instance>
+<instance part="S3" gate="1" x="48.26" y="83.82" smashed="yes" rot="R270">
+<attribute name="NAME" x="45.72" y="90.17" size="1.778" layer="95"/>
+<attribute name="VALUE" x="51.435" y="87.63" size="1.778" layer="96"/>
+</instance>
+<instance part="GND4" gate="1" x="40.64" y="63.5" smashed="yes">
+<attribute name="VALUE" x="38.1" y="60.96" size="1.778" layer="96"/>
+</instance>
+<instance part="S4" gate="1" x="48.26" y="71.12" smashed="yes" rot="R270">
+<attribute name="NAME" x="45.72" y="77.47" size="1.778" layer="95"/>
+<attribute name="VALUE" x="51.435" y="74.93" size="1.778" layer="96"/>
+</instance>
+<instance part="+3V1" gate="G$1" x="68.58" y="142.24" smashed="yes">
+<attribute name="VALUE" x="71.12" y="144.78" size="1.778" layer="96" rot="R180"/>
+</instance>
+<instance part="GND3" gate="1" x="68.58" y="119.38" smashed="yes">
+<attribute name="VALUE" x="66.04" y="116.84" size="1.778" layer="96"/>
+</instance>
+<instance part="P+1" gate="1" x="127" y="142.24" smashed="yes">
+<attribute name="VALUE" x="128.905" y="144.78" size="1.778" layer="96" rot="R180"/>
+</instance>
+<instance part="GND5" gate="1" x="116.84" y="119.38" smashed="yes">
+<attribute name="VALUE" x="114.3" y="116.84" size="1.778" layer="96"/>
+</instance>
+<instance part="IC1" gate="G$1" x="43.18" y="121.92" smashed="yes">
+<attribute name="NAME" x="40.64" y="124.46" size="1.27" layer="95" rot="R90"/>
+<attribute name="VALUE" x="43.18" y="142.24" size="1.27" layer="95"/>
 </instance>
 </instances>
 <busses>
@@ -1204,222 +1387,309 @@ DIN A4, landscape with location and doc. field</description>
 <nets>
 <net name="+5V" class="3">
 <segment>
-<wire x1="205.74" y1="142.24" x2="205.74" y2="152.4" width="0.1524" layer="91"/>
-<wire x1="228.6" y1="142.24" x2="220.98" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="220.98" y1="142.24" x2="205.74" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="228.6" y1="149.86" x2="220.98" y2="149.86" width="0.1524" layer="91"/>
-<wire x1="220.98" y1="149.86" x2="220.98" y2="142.24" width="0.1524" layer="91"/>
-<junction x="220.98" y="142.24"/>
+<wire x1="208.28" y1="137.16" x2="208.28" y2="144.78" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<wire x1="208.28" y1="144.78" x2="208.28" y2="147.32" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<wire x1="226.06" y1="137.16" x2="208.28" y2="137.16" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="P+4" gate="1" pin="+5V"/>
 <pinref part="POWER" gate="A" pin="5"/>
 <pinref part="POWER" gate="A" pin="2"/>
+<wire x1="226.06" y1="144.78" x2="208.28" y2="144.78" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<junction x="208.28" y="144.78" grouprefs="ARDUINO"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="VCC"/>
+<pinref part="P+1" gate="1" pin="+5V"/>
+<wire x1="132.08" y1="134.62" x2="127" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="127" y1="134.62" x2="127" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="2">
 <segment>
-<wire x1="228.6" y1="114.3" x2="213.36" y2="114.3" width="0.1524" layer="91"/>
-<label x="213.36" y="114.3" size="1.778" layer="95"/>
+<wire x1="226.06" y1="109.22" x2="210.82" y2="109.22" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="109.22" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="7"/>
 </segment>
 <segment>
 <pinref part="GND1" gate="1" pin="GND"/>
-<wire x1="208.28" y1="134.62" x2="208.28" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="129.54" x2="208.28" y2="132.08" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="POWER" gate="A" pin="6"/>
-<wire x1="208.28" y1="137.16" x2="208.28" y2="139.7" width="0.1524" layer="91"/>
-<wire x1="208.28" y1="139.7" x2="228.6" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="132.08" x2="208.28" y2="134.62" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<wire x1="208.28" y1="134.62" x2="226.06" y2="134.62" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="POWER" gate="A" pin="7"/>
-<wire x1="228.6" y1="137.16" x2="208.28" y2="137.16" width="0.1524" layer="91"/>
-<junction x="208.28" y="137.16"/>
+<wire x1="226.06" y1="132.08" x2="208.28" y2="132.08" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<junction x="208.28" y="132.08" grouprefs="ARDUINO"/>
 </segment>
 <segment>
-<pinref part="S1" gate="1" pin="P1"/>
-<pinref part="GND2" gate="1" pin="GND"/>
-<pinref part="S1" gate="1" pin="P"/>
-<wire x1="198.12" y1="134.62" x2="200.66" y2="134.62" width="0.1524" layer="91"/>
-<junction x="200.66" y="134.62"/>
+<pinref part="S4" gate="1" pin="P1"/>
+<wire x1="43.18" y1="68.58" x2="40.64" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="68.58" x2="40.64" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="S2" gate="1" pin="P"/>
+<wire x1="40.64" y1="71.12" x2="40.64" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="81.28" x2="40.64" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="83.82" x2="40.64" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="93.98" x2="40.64" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="96.52" x2="43.18" y2="96.52" width="0.1524" layer="91"/>
+<pinref part="S2" gate="1" pin="P1"/>
+<wire x1="43.18" y1="93.98" x2="40.64" y2="93.98" width="0.1524" layer="91"/>
+<junction x="40.64" y="93.98"/>
+<pinref part="S3" gate="1" pin="P"/>
+<wire x1="43.18" y1="83.82" x2="40.64" y2="83.82" width="0.1524" layer="91"/>
+<junction x="40.64" y="83.82"/>
+<pinref part="S3" gate="1" pin="P1"/>
+<wire x1="43.18" y1="81.28" x2="40.64" y2="81.28" width="0.1524" layer="91"/>
+<junction x="40.64" y="81.28"/>
+<pinref part="S4" gate="1" pin="P"/>
+<wire x1="43.18" y1="71.12" x2="40.64" y2="71.12" width="0.1524" layer="91"/>
+<junction x="40.64" y="71.12"/>
+<pinref part="GND4" gate="1" pin="GND"/>
+<wire x1="40.64" y1="66.04" x2="40.64" y2="68.58" width="0.1524" layer="91"/>
+<junction x="40.64" y="68.58"/>
+</segment>
+<segment>
+<pinref part="GND3" gate="1" pin="GND"/>
+<pinref part="IC1" gate="G$1" pin="GND"/>
+<wire x1="66.04" y1="124.46" x2="68.58" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="124.46" x2="68.58" y2="121.92" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="GND"/>
+<wire x1="132.08" y1="132.08" x2="116.84" y2="132.08" width="0.1524" layer="91"/>
+<pinref part="GND5" gate="1" pin="GND"/>
+<wire x1="116.84" y1="132.08" x2="116.84" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="AREF" class="4">
 <segment>
-<wire x1="228.6" y1="116.84" x2="213.36" y2="116.84" width="0.1524" layer="91"/>
-<label x="213.36" y="116.84" size="1.778" layer="95"/>
+<wire x1="226.06" y1="111.76" x2="210.82" y2="111.76" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="111.76" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="8"/>
 </segment>
 </net>
 <net name="VIN" class="1">
 <segment>
-<wire x1="213.36" y1="134.62" x2="228.6" y2="134.62" width="0.1524" layer="91"/>
-<label x="213.36" y="134.62" size="1.778" layer="95"/>
+<wire x1="210.82" y1="129.54" x2="226.06" y2="129.54" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="129.54" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="POWER" gate="A" pin="8"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
 <segment>
-<wire x1="228.6" y1="144.78" x2="208.28" y2="144.78" width="0.1524" layer="91"/>
-<label x="208.28" y="144.78" size="1.778" layer="95"/>
+<wire x1="226.06" y1="139.7" x2="210.82" y2="139.7" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="139.7" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="POWER" gate="A" pin="4"/>
+</segment>
+<segment>
+<pinref part="+3V1" gate="G$1" pin="+3V3"/>
+<wire x1="68.58" y1="139.7" x2="68.58" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="137.16" x2="66.04" y2="137.16" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="G$1" pin="3.3V"/>
 </segment>
 </net>
 <net name="MISO" class="0">
 <segment>
-<wire x1="213.36" y1="109.22" x2="228.6" y2="109.22" width="0.1524" layer="91"/>
-<label x="213.36" y="109.22" size="1.778" layer="95"/>
+<wire x1="210.82" y1="104.14" x2="226.06" y2="104.14" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="104.14" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="5"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
 <segment>
-<wire x1="228.6" y1="106.68" x2="213.36" y2="106.68" width="0.1524" layer="91"/>
-<label x="213.36" y="106.68" size="1.778" layer="95"/>
+<wire x1="226.06" y1="101.6" x2="210.82" y2="101.6" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="101.6" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="4"/>
 </segment>
 </net>
 <net name="SS" class="0">
 <segment>
-<wire x1="213.36" y1="104.14" x2="228.6" y2="104.14" width="0.1524" layer="91"/>
-<label x="213.36" y="104.14" size="1.778" layer="95"/>
+<wire x1="210.82" y1="99.06" x2="226.06" y2="99.06" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="99.06" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="3"/>
 </segment>
 </net>
 <net name="AD0" class="0">
 <segment>
-<wire x1="228.6" y1="73.66" x2="213.36" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="68.58" x2="210.82" y2="68.58" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="AD" gate="A" pin="1"/>
-<label x="213.36" y="73.66" size="1.778" layer="95"/>
+<label x="210.82" y="68.58" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="AD1" class="0">
 <segment>
-<wire x1="213.36" y1="76.2" x2="228.6" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="71.12" x2="226.06" y2="71.12" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="AD" gate="A" pin="2"/>
-<label x="213.36" y="76.2" size="1.778" layer="95"/>
+<label x="210.82" y="71.12" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="AD2" class="0">
 <segment>
-<wire x1="228.6" y1="78.74" x2="213.36" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="73.66" x2="210.82" y2="73.66" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="AD" gate="A" pin="3"/>
-<label x="213.36" y="78.74" size="1.778" layer="95"/>
+<label x="210.82" y="73.66" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="AD3" class="0">
 <segment>
-<wire x1="213.36" y1="81.28" x2="228.6" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="76.2" x2="226.06" y2="76.2" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="AD" gate="A" pin="4"/>
-<label x="213.36" y="81.28" size="1.778" layer="95"/>
+<label x="210.82" y="76.2" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="AD4/SDA" class="0">
 <segment>
-<wire x1="228.6" y1="83.82" x2="213.36" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="78.74" x2="210.82" y2="78.74" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="AD" gate="A" pin="5"/>
-<label x="213.36" y="83.82" size="1.778" layer="95"/>
+<label x="210.82" y="78.74" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 <segment>
-<wire x1="228.6" y1="119.38" x2="213.36" y2="119.38" width="0.1524" layer="91"/>
-<label x="213.36" y="119.38" size="1.778" layer="95"/>
+<wire x1="226.06" y1="114.3" x2="210.82" y2="114.3" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="114.3" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="9"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="G$1" pin="SDA"/>
+<wire x1="66.04" y1="132.08" x2="78.74" y2="132.08" width="0.1524" layer="91"/>
+<label x="68.58" y="132.08" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="SDA"/>
+<wire x1="132.08" y1="127" x2="119.38" y2="127" width="0.1524" layer="91"/>
+<label x="119.38" y="127" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="AD5/SCL" class="0">
 <segment>
-<wire x1="213.36" y1="86.36" x2="228.6" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="81.28" x2="226.06" y2="81.28" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="AD" gate="A" pin="6"/>
-<label x="213.36" y="86.36" size="1.778" layer="95"/>
+<label x="210.82" y="81.28" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 <segment>
-<wire x1="228.6" y1="121.92" x2="213.36" y2="121.92" width="0.1524" layer="91"/>
-<label x="213.36" y="121.92" size="1.778" layer="95"/>
+<wire x1="226.06" y1="116.84" x2="210.82" y2="116.84" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="116.84" size="1.778" layer="95" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="10"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="G$1" pin="SCL"/>
+<wire x1="66.04" y1="134.62" x2="78.74" y2="134.62" width="0.1524" layer="91"/>
+<label x="68.58" y="134.62" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="SCL"/>
+<wire x1="132.08" y1="129.54" x2="119.38" y2="129.54" width="0.1524" layer="91"/>
+<label x="119.38" y="129.54" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="IO2" class="0">
 <segment>
-<wire x1="228.6" y1="48.26" x2="213.36" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="43.18" x2="210.82" y2="43.18" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="3"/>
-<label x="213.36" y="48.26" size="1.778" layer="95"/>
+<label x="210.82" y="43.18" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="IO1" class="0">
 <segment>
-<wire x1="213.36" y1="45.72" x2="228.6" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="40.64" x2="226.06" y2="40.64" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="2"/>
-<label x="213.36" y="45.72" size="1.778" layer="95"/>
+<label x="210.82" y="40.64" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="IO0" class="0">
 <segment>
-<wire x1="228.6" y1="43.18" x2="213.36" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="38.1" x2="210.82" y2="38.1" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="1"/>
-<label x="213.36" y="43.18" size="1.778" layer="95"/>
+<label x="210.82" y="38.1" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="IO3" class="0">
 <segment>
-<wire x1="213.36" y1="50.8" x2="228.6" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="45.72" x2="226.06" y2="45.72" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="4"/>
-<label x="213.36" y="50.8" size="1.778" layer="95"/>
+<label x="210.82" y="45.72" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="IO4" class="0">
 <segment>
-<wire x1="228.6" y1="53.34" x2="213.36" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="48.26" x2="210.82" y2="48.26" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="5"/>
-<label x="213.36" y="53.34" size="1.778" layer="95"/>
+<label x="210.82" y="48.26" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="IO5" class="0">
 <segment>
-<wire x1="213.36" y1="55.88" x2="228.6" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="50.8" x2="226.06" y2="50.8" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="6"/>
-<label x="213.36" y="55.88" size="1.778" layer="95"/>
+<label x="210.82" y="50.8" size="1.778" layer="95" grouprefs="ARDUINO"/>
+</segment>
+<segment>
+<pinref part="S2" gate="1" pin="S"/>
+<wire x1="53.34" y1="96.52" x2="55.88" y2="96.52" width="0.1524" layer="91"/>
+<pinref part="S2" gate="1" pin="S1"/>
+<wire x1="53.34" y1="93.98" x2="55.88" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="93.98" x2="55.88" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="93.98" x2="63.5" y2="93.98" width="0.1524" layer="91"/>
+<junction x="55.88" y="93.98"/>
+<label x="58.42" y="93.98" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="IO6" class="0">
 <segment>
-<wire x1="228.6" y1="58.42" x2="213.36" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="53.34" x2="210.82" y2="53.34" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="7"/>
-<label x="213.36" y="58.42" size="1.778" layer="95"/>
+<label x="210.82" y="53.34" size="1.778" layer="95" grouprefs="ARDUINO"/>
+</segment>
+<segment>
+<pinref part="S3" gate="1" pin="S"/>
+<wire x1="53.34" y1="83.82" x2="55.88" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="83.82" x2="55.88" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="S3" gate="1" pin="S1"/>
+<wire x1="55.88" y1="81.28" x2="53.34" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="81.28" x2="63.5" y2="81.28" width="0.1524" layer="91"/>
+<junction x="55.88" y="81.28"/>
+<label x="58.42" y="81.28" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="IO7" class="0">
 <segment>
-<wire x1="213.36" y1="60.96" x2="228.6" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="55.88" x2="226.06" y2="55.88" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOL" gate="A" pin="8"/>
-<label x="213.36" y="60.96" size="1.778" layer="95"/>
+<label x="210.82" y="55.88" size="1.778" layer="95" grouprefs="ARDUINO"/>
+</segment>
+<segment>
+<pinref part="S4" gate="1" pin="S1"/>
+<wire x1="53.34" y1="68.58" x2="55.88" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="68.58" x2="55.88" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="S4" gate="1" pin="S"/>
+<wire x1="55.88" y1="71.12" x2="53.34" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="68.58" x2="63.5" y2="68.58" width="0.1524" layer="91"/>
+<junction x="55.88" y="68.58"/>
+<label x="58.42" y="68.58" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="IO8" class="0">
 <segment>
-<wire x1="213.36" y1="99.06" x2="228.6" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="93.98" x2="226.06" y2="93.98" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="1"/>
-<label x="213.36" y="99.06" size="1.778" layer="95"/>
+<label x="210.82" y="93.98" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="IO9" class="0">
 <segment>
-<wire x1="228.6" y1="101.6" x2="213.36" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="96.52" x2="210.82" y2="96.52" width="0.1524" layer="91" grouprefs="ARDUINO"/>
 <pinref part="IOH" gate="A" pin="2"/>
-<label x="213.36" y="101.6" size="1.778" layer="95"/>
+<label x="210.82" y="96.52" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="RESET" class="0">
 <segment>
 <pinref part="POWER" gate="A" pin="3"/>
-<wire x1="200.66" y1="147.32" x2="228.6" y2="147.32" width="0.1524" layer="91"/>
-<label x="208.28" y="147.32" size="1.6764" layer="95"/>
-<pinref part="S1" gate="1" pin="S1"/>
-<wire x1="200.66" y1="147.32" x2="200.66" y2="144.78" width="0.1524" layer="91"/>
-<pinref part="S1" gate="1" pin="S"/>
-<wire x1="198.12" y1="144.78" x2="200.66" y2="144.78" width="0.1524" layer="91"/>
-<junction x="200.66" y="144.78"/>
+<wire x1="210.82" y1="142.24" x2="226.06" y2="142.24" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="142.24" size="1.6764" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 <net name="SCK" class="0">
 <segment>
 <pinref part="IOH" gate="A" pin="6"/>
-<wire x1="213.36" y1="111.76" x2="228.6" y2="111.76" width="0.1524" layer="91"/>
-<label x="213.36" y="111.76" size="1.778" layer="95"/>
+<wire x1="210.82" y1="106.68" x2="226.06" y2="106.68" width="0.1524" layer="91" grouprefs="ARDUINO"/>
+<label x="210.82" y="106.68" size="1.778" layer="95" grouprefs="ARDUINO"/>
 </segment>
 </net>
 </nets>
@@ -1428,6 +1698,10 @@ DIN A4, landscape with location and doc. field</description>
 </schematic>
 </drawing>
 <compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
 <note version="8.2" severity="warning">
 Since Version 8.2, EAGLE supports online libraries. The ids
 of those online libraries will not be understood (or retained)
@@ -1442,6 +1716,11 @@ will not be understood (or retained) with this version.
 Since Version 8.3, EAGLE supports the association of 3D packages
 with devices in libraries, schematics, and board files. Those 3D
 packages will not be understood (or retained) with this version.
+</note>
+<note version="9.5" severity="warning">
+Since Version 9.5, EAGLE supports persistent groups with
+schematics, and board files. Those persistent groups
+will not be understood (or retained) with this version.
 </note>
 </compatibility>
 </eagle>

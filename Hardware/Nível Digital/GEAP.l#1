@@ -205,11 +205,11 @@
 <text x="-4.572" y="-2.794" size="1.27" layer="51" ratio="10">3</text>
 <text x="3.556" y="-2.794" size="1.27" layer="51" ratio="10">4</text>
 </package>
-<package name="OLED_0.96_I2C" urn="urn:adsk.eagle:footprint:30876133/1">
-<pad name="SDA" x="3.45" y="11.63" drill="1" diameter="1.778" rot="R180"/>
-<pad name="SCL" x="0.91" y="11.63" drill="1" diameter="1.778" rot="R180"/>
-<pad name="GND" x="-1.63" y="11.63" drill="1" diameter="1.778" rot="R180"/>
-<pad name="VCC" x="-4.17" y="11.63" drill="1" diameter="1.778" rot="R270"/>
+<package name="OLED_0.96_I2C" urn="urn:adsk.eagle:footprint:30876133/1" locally_modified="yes">
+<pad name="4" x="3.45" y="11.63" drill="0.9" diameter="1.8" rot="R180"/>
+<pad name="3" x="0.91" y="11.63" drill="0.9" diameter="1.8" rot="R180"/>
+<pad name="2" x="-1.63" y="11.63" drill="0.9" diameter="1.8" rot="R180"/>
+<pad name="1" x="-4.17" y="11.63" drill="0.9" diameter="1.8"/>
 <wire x1="10.33" y1="-13.97" x2="5.08" y2="-13.97" width="0.127" layer="21"/>
 <wire x1="5.08" y1="-13.97" x2="3.81" y2="-12.7" width="0.127" layer="21"/>
 <wire x1="3.81" y1="-12.7" x2="-5.08" y2="-12.7" width="0.127" layer="21"/>
@@ -232,51 +232,33 @@
 <hole x="10.03" y="-11.97" drill="2"/>
 <hole x="10.03" y="11.33" drill="2"/>
 <hole x="-10.67" y="11.33" drill="2"/>
-</package>
-<package name="OLED_0.96_I2C-BACKUP">
-<pad name="SDA" x="3.45" y="11.63" drill="1" diameter="1.778" rot="R180"/>
-<pad name="SCL" x="0.91" y="11.63" drill="1" diameter="1.778" rot="R180"/>
-<pad name="GND" x="-1.63" y="11.63" drill="1" diameter="1.778" rot="R180"/>
-<pad name="VCC" x="-4.17" y="11.63" drill="1" diameter="1.778" rot="R270"/>
-<wire x1="10.33" y1="-13.97" x2="5.08" y2="-13.97" width="0.127" layer="21"/>
-<wire x1="5.08" y1="-13.97" x2="3.81" y2="-12.7" width="0.127" layer="21"/>
-<wire x1="3.81" y1="-12.7" x2="-5.08" y2="-12.7" width="0.127" layer="21"/>
-<wire x1="-5.08" y1="-12.7" x2="-6.35" y2="-13.97" width="0.127" layer="21"/>
-<wire x1="-6.35" y1="-13.97" x2="-10.97" y2="-13.97" width="0.127" layer="21"/>
-<wire x1="-10.97" y1="-13.97" x2="-13.97" y2="-10.97" width="0.127" layer="21" curve="-90"/>
-<wire x1="-13.97" y1="-10.97" x2="-13.97" y2="-9.82" width="0.127" layer="21"/>
-<wire x1="-13.97" y1="-9.82" x2="-13.97" y2="9.18" width="0.127" layer="21"/>
-<wire x1="-13.97" y1="9.18" x2="-13.97" y2="10.33" width="0.127" layer="21"/>
-<wire x1="-13.97" y1="10.33" x2="-10.97" y2="13.33" width="0.127" layer="21" curve="-90"/>
-<wire x1="-10.97" y1="13.33" x2="10.33" y2="13.33" width="0.127" layer="21"/>
-<wire x1="10.33" y1="13.33" x2="13.33" y2="10.33" width="0.127" layer="21" curve="-90"/>
-<wire x1="13.33" y1="10.33" x2="13.33" y2="9.18" width="0.127" layer="21"/>
-<wire x1="13.33" y1="9.18" x2="13.33" y2="-9.82" width="0.127" layer="21"/>
-<wire x1="13.33" y1="-9.82" x2="13.33" y2="-10.97" width="0.127" layer="21"/>
-<wire x1="13.33" y1="-10.97" x2="10.33" y2="-13.97" width="0.127" layer="21" curve="-90"/>
-<wire x1="-13.97" y1="9.18" x2="13.33" y2="9.18" width="0.127" layer="21"/>
-<wire x1="-13.97" y1="-9.82" x2="13.33" y2="-9.82" width="0.127" layer="21"/>
-<hole x="-10.67" y="-11.97" drill="2"/>
-<hole x="10.03" y="-11.97" drill="2"/>
-<hole x="10.03" y="11.33" drill="2"/>
-<hole x="-10.67" y="11.33" drill="2"/>
+<text x="-5.715" y="9.652" size="0.8128" layer="21">VCC</text>
+<text x="-2.794" y="9.652" size="0.8128" layer="21">GND</text>
+<text x="0.127" y="9.652" size="0.8128" layer="21">SCL</text>
+<text x="2.794" y="9.652" size="0.8128" layer="21">SDA</text>
 </package>
 <package name="MODULO_ADXL345">
-<pad name="SCL" x="1.27" y="1.27" drill="0.6"/>
-<pad name="SDA" x="1.27" y="3.81" drill="0.6"/>
-<pad name="SDO" x="1.27" y="6.35" drill="0.6"/>
-<pad name="INT2" x="1.27" y="8.89" drill="0.6"/>
-<pad name="INT1" x="1.27" y="11.43" drill="0.6"/>
-<pad name="CS" x="1.27" y="13.97" drill="0.6"/>
-<pad name="VCC" x="1.27" y="16.51" drill="0.6"/>
-<pad name="GND" x="1.27" y="19.05" drill="0.6" shape="square"/>
-<wire x1="0" y1="0" x2="0" y2="20.32" width="0.127" layer="21"/>
-<wire x1="0" y1="20.32" x2="16.51" y2="20.32" width="0.127" layer="21"/>
-<wire x1="16.51" y1="20.32" x2="16.51" y2="0" width="0.127" layer="21"/>
+<description>Módulo ADXL345 + ITG3200 Sparkfun</description>
+<pad name="4" x="1.27" y="6.35" drill="0.9" diameter="1.8"/>
+<pad name="3" x="1.27" y="8.89" drill="0.9" diameter="1.8"/>
+<pad name="5" x="1.27" y="3.81" drill="0.9" diameter="1.8"/>
+<pad name="1" x="1.27" y="13.97" drill="0.9" diameter="1.8"/>
+<pad name="2" x="1.27" y="11.43" drill="0.9" diameter="1.8"/>
+<wire x1="0" y1="0" x2="0" y2="15.24" width="0.127" layer="21"/>
+<wire x1="0" y1="15.24" x2="16.51" y2="15.24" width="0.127" layer="21"/>
+<wire x1="16.51" y1="15.24" x2="16.51" y2="0" width="0.127" layer="21"/>
 <wire x1="16.51" y1="0" x2="0" y2="0" width="0.127" layer="21"/>
-<hole x="12.7" y="16.51" drill="2.54"/>
-<hole x="12.7" y="3.81" drill="2.54"/>
-<text x="15.24" y="6.35" size="1.27" layer="21" rot="R90">ADXL345</text>
+<hole x="13.97" y="12.3825" drill="3.429"/>
+<hole x="13.97" y="2.8575" drill="3.429"/>
+<text x="8.128" y="5.842" size="1.27" layer="21">ADXL345
+ITG3200</text>
+<pad name="6" x="1.27" y="1.27" drill="0.9" diameter="1.8"/>
+<text x="3.048" y="13.462" size="1.27" layer="21">3.3V</text>
+<text x="3.048" y="10.922" size="1.27" layer="21">GND</text>
+<text x="3.048" y="8.382" size="1.27" layer="21">SDA</text>
+<text x="3.048" y="5.842" size="1.27" layer="21">SCL</text>
+<text x="3.048" y="3.302" size="1.27" layer="21">INT1</text>
+<text x="3.048" y="0.762" size="1.27" layer="21">INT0</text>
 </package>
 </packages>
 <packages3d>
@@ -315,33 +297,37 @@
 <pin name="P1" x="2.54" y="-5.08" visible="pad" length="short" direction="pas" swaplevel="2" rot="R90"/>
 </symbol>
 <symbol name="OLED_0.96_I2C">
-<wire x1="-10.16" y1="7.62" x2="7.62" y2="7.62" width="0.254" layer="94"/>
-<wire x1="7.62" y1="7.62" x2="7.62" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="7.62" y1="-7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="-10.16" y1="-7.62" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
-<pin name="SCL" x="0" y="-12.7" length="middle" rot="R90"/>
-<pin name="VCC" x="-5.08" y="-12.7" length="middle" rot="R90"/>
-<pin name="GND" x="-2.54" y="-12.7" length="middle" rot="R90"/>
-<pin name="SDA" x="2.54" y="-12.7" length="middle" rot="R90"/>
-<text x="-10.668" y="-7.112" size="1.27" layer="95" rot="R90">&gt;NAME</text>
-<text x="-10.668" y="0.508" size="1.27" layer="96" rot="R90">&gt;VALUE</text>
+<wire x1="0" y1="20.32" x2="22.86" y2="20.32" width="0.254" layer="94"/>
+<wire x1="22.86" y1="20.32" x2="22.86" y2="0" width="0.254" layer="94"/>
+<wire x1="22.86" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="0" y2="20.32" width="0.254" layer="94"/>
+<pin name="SCL" x="12.7" y="-5.08" length="middle" rot="R90"/>
+<pin name="VCC" x="7.62" y="-5.08" length="middle" direction="pwr" rot="R90"/>
+<pin name="GND" x="10.16" y="-5.08" length="middle" direction="pwr" rot="R90"/>
+<pin name="SDA" x="15.24" y="-5.08" length="middle" rot="R90"/>
+<text x="-0.508" y="0.508" size="1.27" layer="95" rot="R90">&gt;NAME</text>
+<text x="8.128" y="20.828" size="1.27" layer="96">&gt;VALUE</text>
+<rectangle x1="2.54" y1="7.62" x2="20.32" y2="17.78" layer="94"/>
 </symbol>
 <symbol name="ADXL345">
-<description>Módulo acelerômetro ADXL345</description>
-<pin name="SCL" x="22.86" y="5.08" length="middle" rot="R180"/>
-<pin name="SDA" x="22.86" y="7.62" length="middle" rot="R180"/>
-<pin name="SDO" x="22.86" y="10.16" length="middle" rot="R180"/>
-<pin name="INT2" x="22.86" y="12.7" length="middle" direction="out" rot="R180"/>
-<pin name="INT1" x="22.86" y="15.24" length="middle" direction="out" rot="R180"/>
-<pin name="CS" x="22.86" y="17.78" length="middle" direction="in" rot="R180"/>
-<pin name="VCC" x="22.86" y="20.32" length="middle" direction="pwr" rot="R180"/>
+<description>Módulo Acelerômetro ADXL345 + Giroscópio ITG-3200
+SparkFun https://www.sparkfun.com/products/retired/10121</description>
+<pin name="INT1" x="22.86" y="5.08" length="middle" direction="out" rot="R180"/>
+<pin name="INT0" x="22.86" y="7.62" length="middle" direction="out" rot="R180"/>
+<pin name="SDA" x="22.86" y="10.16" length="middle" rot="R180"/>
+<pin name="SCL" x="22.86" y="12.7" length="middle" direction="in" rot="R180"/>
+<pin name="3.3V" x="22.86" y="15.24" length="middle" direction="pwr" rot="R180"/>
 <pin name="GND" x="22.86" y="2.54" length="middle" direction="pwr" rot="R180"/>
-<wire x1="0" y1="0" x2="0" y2="22.86" width="0.254" layer="94"/>
-<wire x1="0" y1="22.86" x2="17.78" y2="22.86" width="0.254" layer="94"/>
-<wire x1="17.78" y1="22.86" x2="17.78" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="0" y2="17.78" width="0.254" layer="94"/>
+<wire x1="0" y1="17.78" x2="17.78" y2="17.78" width="0.254" layer="94"/>
+<wire x1="17.78" y1="17.78" x2="17.78" y2="0" width="0.254" layer="94"/>
 <wire x1="17.78" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
 <text x="-2.54" y="2.54" size="1.27" layer="95" rot="R90">&gt;NAME</text>
-<text x="5.08" y="25.4" size="1.27" layer="95">&gt;VALUE</text>
+<text x="5.08" y="20.32" size="1.27" layer="95">&gt;VALUE</text>
+<text x="7.62" y="15.24" size="1.778" layer="94" rot="R180">6DOF
+digital</text>
+<text x="1.27" y="2.54" size="1.27" layer="94">ADXL
+ITG-3200</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -372,37 +358,27 @@
 <gate name="G$1" symbol="OLED_0.96_I2C" x="2.54" y="0"/>
 </gates>
 <devices>
-<device name="" package="OLED_0.96_I2C">
-<connects>
-<connect gate="G$1" pin="GND" pad="GND"/>
-<connect gate="G$1" pin="SCL" pad="SCL"/>
-<connect gate="G$1" pin="SDA" pad="SDA"/>
-<connect gate="G$1" pin="VCC" pad="VCC"/>
-</connects>
-<package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:30876132/2"/>
-</package3dinstances>
+<device name="">
 <technologies>
 <technology name=""/>
 </technologies>
 </device>
 </devices>
 </deviceset>
-<deviceset name="MODULO_ADXL345">
+<deviceset name="MODULO_ADXL345" prefix="IC">
+<description>Módulo Acelerômetro ADXL345 + Giroscópio ITG-3200 SparkFun https://www.sparkfun.com/products/retired/10121</description>
 <gates>
 <gate name="G$1" symbol="ADXL345" x="0" y="0"/>
 </gates>
 <devices>
 <device name="" package="MODULO_ADXL345">
 <connects>
-<connect gate="G$1" pin="CS" pad="CS"/>
-<connect gate="G$1" pin="GND" pad="GND"/>
-<connect gate="G$1" pin="INT1" pad="INT1"/>
-<connect gate="G$1" pin="INT2" pad="INT2"/>
-<connect gate="G$1" pin="SCL" pad="SCL"/>
-<connect gate="G$1" pin="SDA" pad="SDA"/>
-<connect gate="G$1" pin="SDO" pad="SDO"/>
-<connect gate="G$1" pin="VCC" pad="VCC"/>
+<connect gate="G$1" pin="3.3V" pad="1"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="INT0" pad="6"/>
+<connect gate="G$1" pin="INT1" pad="5"/>
+<connect gate="G$1" pin="SCL" pad="4"/>
+<connect gate="G$1" pin="SDA" pad="3"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -414,6 +390,10 @@
 </library>
 </drawing>
 <compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
 <note version="8.3" severity="warning">
 Since Version 8.3, EAGLE supports URNs for individual library
 assets (packages, symbols, and devices). The URNs of those assets
