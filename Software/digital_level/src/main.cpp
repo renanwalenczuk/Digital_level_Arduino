@@ -275,8 +275,8 @@ void desenhaLogoSENAI(void) {
 }
 
 void desenhaSeta(){
-  if(y < 0) display.drawBitmap(114, 0, bitmap_seta_para_cima, 13, 7, 1);
-  else if(y > 0)display.drawBitmap(114, 0, bitmap_seta_para_baixo, 13, 7, 1);
+  if(x < 0) display.drawBitmap(114, 0, bitmap_seta_para_cima, 13, 7, 1);
+  else if(x > 0)display.drawBitmap(114, 0, bitmap_seta_para_baixo, 13, 7, 1);
 }
 
 void setup() {
