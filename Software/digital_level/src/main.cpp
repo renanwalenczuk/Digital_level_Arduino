@@ -1,44 +1,30 @@
 #include <Arduino.h>
 
-/*TODO**********************************************************************
-Adicionar
+//Bibliotecas
+#include <Wire.h>             // Biblioteca para comunicação I2C
+#include <Adafruit_GFX.h>     // Biblioteca elementos gráficos
+#include <Adafruit_SSD1306.h> // Biblioteca Display
+#include <SparkFun_ADXL345.h> // Biblioteca acelerômetro
 
-RANGE 0-90° E 0-180°
-Ajustar leitura do sensor 
+//Definições do display
+#define SCREEN_WIDTH 128    // Especifica a largura do display em pixels
+#define SCREEN_HEIGHT 64    // Especifica a altura do display em pixels
+#define OLED_RESET     -1   // pino de reset do display # (-1 se for utilizar o reset do arduino)
+#define SCREEN_ADDRESS 0x3C // Endereço de comunicação do display (vide datasheet)
 
-ZERO RELATIVO
-Verificar as medições relativas ou absolutas
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET); //Instancia o objeto display de acordo com as especificações indicadas
 
-AUTO ROTATE
+//Definições do Acelerômetro
+//ADXL345 adxl = ADXL345(10); //Instancia o objeto adxl(acelerometro) comunicação SPI
+ADXL345 adxl = ADXL345();     //Instancia o objeto adxl(acelerometro) comunicação I2C por padrão
 
-**************************************************************************/
+//Constantes do usuário
+#define LOGO_HEIGHT   64  //Altura do logotipo
+#define LOGO_WIDTH    128 //largura do logotipo
+#define M_POS_X       30  //Posição da medição eixo x
+#define M_POS_Y       36  //Posição da medição eixo y
 
-#include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <SparkFun_ADXL345.h>         // SparkFun ADXL345 Library
-
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-
-#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
-
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-
-/*********** COMMUNICATION SELECTION ***********/
-/*    Comment Out The One You Are Not Using    */
-//ADXL345 adxl = ADXL345(10);           // USE FOR SPI COMMUNICATION, ADXL345(CS_PIN);
-ADXL345 adxl = ADXL345();             // USE FOR I2C COMMUNICATION
-
-//Constantes
-#define LOGO_HEIGHT   64
-#define LOGO_WIDTH    128
-#define M_POS_X       30
-#define M_POS_Y       36
-
-#define BATERIA_BAIXA 30
+#define BATERIA_BAIXA 500  //Nível mínimo da bateria
 
 // 'angulo180', 25x14px
 const unsigned char bitmap_angulo180 [] PROGMEM = {
@@ -147,23 +133,12 @@ const int pinoBateria = A0;
 //Variáveis globais
 bool zeroRelativo = false;
 bool hold = false;
-int range = 90;
-float anguloAtual = 0, anguloRelativo = 0;
-int x,y,z;
+float angulo = 0, anguloRelativo = 0;
+int x,y,z; //Medidas de aceleração da gravidade
 
 //Funções do usuário
-
 void leAcelerometro(){
-  // Accelerometer Readings
-  adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
-
-  // Output Results to Serial
-  /* UNCOMMENT TO VIEW X Y Z ACCELEROMETER VALUES */  
-  Serial.print(x);
-  Serial.print(", ");
-  Serial.print(y);
-  Serial.print(", ");
-  Serial.println(z);
+  adxl.readAccel(&x, &y, &z);         // Realiza a leitura do acelerômetro e salva nas variáveis x,y e z
 }
 
 void configuraAcelerometro(){
@@ -211,21 +186,17 @@ void configuraAcelerometro(){
 }
 
 int nivelBateria(){
-  int cargaBateria = 20;
-  //cargaBateria = analogRead(pinoBateria);
-  //return map(cargaBateria, 0, 1023, 0, 100);
-  return cargaBateria;
+  return analogRead(pinoBateria);
 }
 
-void ligaFuncaoZero(){
+void desenhaZero(){
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(40,0);
-  //display.print("Z");
-  display.write('Z');
+  display.print("Z");
 }
 
-void ligaFuncaoHold(){
+void desenhaHold(){
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(60,0);
@@ -233,12 +204,7 @@ void ligaFuncaoHold(){
 }
 
 int converteAngulo(){
-  int angulo;
-  if(range == 90) angulo = map(abs(x), 0, 66, 0, 90);
-  else angulo = map(abs(x), 0, 66, 0, 90);
-  if(angulo > 90) angulo = 90;
-  if(angulo < 0) angulo = 0;
-  return angulo;
+  return ((atan2(x,y) * 180)/ 3.14)+90;;
 }
 
 void mostraAngulo(int angulo){
@@ -275,9 +241,19 @@ void desenhaLogoSENAI(void) {
 }
 
 void desenhaSeta(){
-  if(x < 0) display.drawBitmap(114, 0, bitmap_seta_para_cima, 13, 7, 1);
-  else if(x > 0)display.drawBitmap(114, 0, bitmap_seta_para_baixo, 13, 7, 1);
+  if(angulo < 0) display.drawBitmap(114, 0, bitmap_seta_para_cima, 13, 7, 1);
+  else if(angulo > 0)display.drawBitmap(114, 0, bitmap_seta_para_baixo, 13, 7, 1);
 }
+
+void debug(void){
+  Serial.print(x);
+  Serial.print(", ");
+  Serial.print(y);
+  Serial.print(", ");
+  Serial.println(z);
+  float teste = (atan2(y,x) * 180)/ 3.14;
+  Serial.println(teste);
+  }
 
 void setup() {
   Serial.begin(9600);
@@ -290,64 +266,61 @@ void setup() {
   configuraAcelerometro();
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  /*
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
     for(;;); // Don't proceed, loop forever
-  }
+  }*/
+
+  display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);
   
   desenhaLogoSENAI();
   delay(1000);
+}
+
+void atualizaDisplay(){
+  if(angulo > 90) {
+    angulo -= 180;
+    display.setRotation(2);
+  }
+  else display.setRotation(0);
+
+  desenha_90();
+  if(hold) desenhaHold();
+  if(zeroRelativo) desenhaZero();
+  if(nivelBateria() < BATERIA_BAIXA) desenhaBateriaBaixa();
+  desenhaSeta();
+  mostraAngulo(abs(angulo));
+  display.display();
 }
 
 void loop() {
 
   display.clearDisplay();
 
-  if(digitalRead(bt_zero) == 0){
+  leAcelerometro();
+
+  if(!hold) angulo = converteAngulo() - anguloRelativo;
+
+  atualizaDisplay();
+
+  if(!digitalRead(bt_zero)){
     if(zeroRelativo){
       zeroRelativo = false;
       anguloRelativo = 0;
     }
     else{
       zeroRelativo = true;
-      anguloRelativo = anguloAtual;
+      anguloRelativo = angulo;
     }
     delay(200);
   }
 
-  if(digitalRead(bt_hold) == 0){
+  if(!digitalRead(bt_hold)){
     if(hold) hold = false;
     else hold = true;
     delay(200);
   }
 
-  if(digitalRead(bt_range) == 0){
-    if(range == 90) range = 180;
-    else range = 90;
-    delay(200);
-  }
-
-  desenhaSeta();
-
-  leAcelerometro();
-
-  if(y < 0) display.setRotation(2);
-  else display.setRotation(0);
-
-  if(range == 90) desenha_90();
-  else desenha_180();
-
-  if(hold) ligaFuncaoHold();
-
-  if(zeroRelativo) ligaFuncaoZero();
-  
-  if(nivelBateria() < BATERIA_BAIXA) desenhaBateriaBaixa();
-
-  if(!hold) anguloAtual = converteAngulo() - anguloRelativo;
-  if(anguloAtual < 0) anguloAtual = abs(anguloAtual);
-
-  mostraAngulo(anguloAtual);
-
-  display.display();
   delay(100);
 }
