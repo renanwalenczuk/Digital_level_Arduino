@@ -144,7 +144,7 @@ void leAcelerometro(){
 void configuraAcelerometro(){
   adxl.powerOn();                     // Power on the ADXL345
 
-  adxl.setRangeSetting(8);           // Give the range settings
+  adxl.setRangeSetting(4);           // Give the range settings
                                       // Accepted values are 2g, 4g, 8g or 16g
                                       // Higher Values = Wider Measurement Range
                                       // Lower Values = Greater Sensitivity
